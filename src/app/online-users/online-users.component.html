@@ -1,1 +1,27 @@
-<p>online-users works!</p>
+<div>
+    <div *ngIf="!isLoggedIn">
+      <h2>Login</h2>
+      <input [(ngModel)]="userName" placeholder="Enter your username" />
+      <button (click)="login()">Login</button>
+    </div>
+
+    <div *ngIf="isLoggedIn">
+      <h2>Online Users</h2>
+      <ul>
+        <li *ngFor="let user of onlineUsers">
+          {{ user }}
+          <button (click)="initiateConnectionRequest(user)" *ngIf="user !== userName">Connect</button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" *ngIf="showConfirmModal">
+      <div class="modal-content">
+        <h3>Connection request received from {{ fromUser }}</h3>
+        <p>Do you want to join the meeting?</p>
+        <button (click)="acceptConnection()">Accept</button>
+        <button (click)="rejectConnection()">Reject</button>
+      </div>
+    </div>
+  </div>
